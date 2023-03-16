@@ -2,30 +2,39 @@ import React, { useEffect, useState } from 'react';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
 
-const SingleUser = ({ users, setUsers, allChecked, id, name, email, role }) => {
+const SingleUser = ({ users, handleUsers, currentItems, setCurrentItems, itemOffset, endOffset, selectedUsers, selectedUsersAllChecked, allChecked, id, name, email, role }) => {
   const [checked, setChecked] = useState(false);
   const [display, setDisplay] = useState(true);
   const [edit, setEdit] = useState(false);
+
+  // console.log("All checked from single user", allChecked)
 
   const deleteUser = () => {
     const user = users.find(user => user.id === id);
     const idx = users.indexOf(user);
     const splicedUser = users.splice(idx, 1);
-    
-    console.log('user to be removed', user, idx);
-    console.log('spliced user', splicedUser);
-    setUsers(users);
-    console.log('single user' , users);
+    handleUsers(users);
+    console.log('single user', users);
+    setCurrentItems(users.slice(itemOffset, endOffset));
   }
-  
+
+  const handleChecked = () => {
+    if (!checked) {
+      selectedUsers.push(id);
+    } else {
+      const idx = selectedUsers.indexOf(id);
+      selectedUsers.splice(idx, 1);
+    }
+
+    setChecked(!checked);
+    console.group("Selected users", selectedUsers)
+  }
+
   const handleDelete = () => {
     deleteUser();
   }
 
-  useEffect(() => {
-    if (allChecked) setChecked(true);
-    if (!allChecked) setChecked(false);
-  }, [allChecked])
+  console.log("single user receiving allSelectedusers", selectedUsersAllChecked)
 
   return (
     display && <div className={`${checked ? 'bg-slate-200' : `bg-white`} flex
@@ -34,7 +43,7 @@ const SingleUser = ({ users, setUsers, allChecked, id, name, email, role }) => {
         <input
           type="checkbox"
           checked={checked}
-          onChange={() => setChecked(!checked)} />
+          onChange={() => handleChecked()} />
       </div>
 
       <div
@@ -74,3 +83,19 @@ const SingleUser = ({ users, setUsers, allChecked, id, name, email, role }) => {
 }
 
 export default SingleUser
+
+
+//    // console.log(selectedUsersAllChecked)
+    // console.log("check", selectedUsersAllChecked.find((selectedId) => selectedId === id))
+    // if (allChecked && selectedUsersAllChecked.find((selectedId) => selectedId === id)){
+    //   console.log("calling condition 1");
+    //   setChecked(true);
+    // }else if(!allChecked){
+    //   setChecked(false);
+    // }
+    // else {
+    //   console.log("calling condition 2");
+    //   console.log(allChecked);
+    //   console.log(selectedUsersAllChecked);
+    //   setChecked(false);
+    // }

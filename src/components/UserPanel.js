@@ -1,18 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import SingleUser from './SingleUser';
-// import ReactPaginate from 'react-paginate';
+import { alertClasses } from "@mui/material";
+import React from "react";
+import { useState, useEffect } from "react";
+import SingleUser from "./SingleUser";
 
-
-const UserPanel = () => {
-  const [users, setUsers] = useState([]);
+const UserPanel = ({ currentItems, setCurrentItems, users, handleUsers, itemOffset, endOffset, selectedUsers }) => {
   const [allChecked, setAllChecked] = useState(false);
-  const [deleteFlag, setDeleteFlag] = useState(false);
+  const [selectedUsersAllChecked, setSelectedUsersAllChecked] = useState([]);
+
+  const handleAllChecked = () => {
+    setAllChecked(!allChecked);
+  }
 
   useEffect(() => {
-    axios.get('https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json')
-      .then((res) => setUsers(res.data))
-  }, [])
+    if(allChecked){
+      const idArr = currentItems.map((curr) => curr.id);
+      setSelectedUsersAllChecked([...idArr]);
+    }else if(!allChecked){
+      setSelectedUsersAllChecked([]);
+    }
+  }, [allChecked])
+
+  useEffect(() => {
+    console.log("selectedUsersAllChecked:", selectedUsersAllChecked);
+  }, [selectedUsersAllChecked]);
+  
+  useEffect(() => {
+    if(allChecked) setAllChecked(!allChecked)
+}, [itemOffset])
+
+  // {allChecked && console.log("Yeah I'm true af")}
+  // {!allChecked && console.log("feeling falsy")}
 
   return (
     <div>
@@ -41,17 +58,29 @@ const UserPanel = () => {
         </div>
 
       </div>
-      {users && users.map((user, idx) =>
-          <SingleUser
-            key={user.id}
-            allChecked={allChecked}
-            id={user.id}
-            name={user.name}
-            email={user.email}
-            role={user.role} />
+      {currentItems && currentItems.map((user, idx) =>
+        <SingleUser
+          users={users}
+          handleUsers={handleUsers}
+
+          currentItems={currentItems}
+          setCurrentItems={setCurrentItems}
+          itemOffset={itemOffset}
+          endOffset={endOffset}
+
+          selectedUsers={selectedUsers}
+          selectedUsersAllChecked={selectedUsersAllChecked}
+          key={user.id}
+          allChecked={allChecked}
+          
+          id={user.id}
+          name={user.name}
+          email={user.email}
+          role={user.role} />
       )}
     </div>
   )
 }
 
-export default UserPanel
+export default UserPanel;
+
