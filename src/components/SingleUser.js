@@ -34,7 +34,7 @@ const SingleUser = ({ users, handleUsers, currentItems, setCurrentItems, itemOff
     deleteUser();
   }
 
-  console.log("single user receiving allSelectedusers", selectedUsersAllChecked)
+  // console.log("single user receiving allSelectedusers", selectedUsersAllChecked)
 
   return (
     display && <div className={`${checked ? 'bg-slate-200' : `bg-white`} flex

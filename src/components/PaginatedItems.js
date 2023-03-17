@@ -58,6 +58,7 @@ function PaginatedItems({ itemsPerPage }) {
         itemOffset={itemOffset}
         endOffset={endOffset}
         selectedUsers={selectedUsers}
+        pageCount={pageCount}
       />
       <div className='flex justify-around items-center py-4'>
         <button
