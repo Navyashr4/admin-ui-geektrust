@@ -2,40 +2,36 @@ import React from "react";
 import { useState, useEffect } from "react";
 import SingleUser from "./SingleUser";
 
-const UserPanel = ({ currentItems, setCurrentItems, users, pageCount, handleUsers, itemOffset, endOffset, selectedUsers }) => {
+const UserPanel = ({ currentItems, setCurrentItems, users, pageCount, handleUsers, itemOffset, endOffset, selectedUsers, selectedUsersAllChecked, setSelectedUsersAllChecked }) => {
   const [allChecked, setAllChecked] = useState(false);
-  const [selectedUsersAllChecked, setSelectedUsersAllChecked] = useState([]);
-  const [pageAllChecked, setPageAllChecked] = useState(0);
+  // const [selectedUsersAllChecked, setSelectedUsersAllChecked] = useState([]);
+  const [pageAllChecked, setPageAllChecked] = useState([]);
 
-  const handleAllChecked = (event) => {
-    console.log("id", event.target.id);
-    setPageAllChecked(Number(event.target.id));
+  const handleAllChecked = () => {
+    setAllChecked(!allChecked);
   }
 
   useEffect(() => {
-    console.log(setPageAllChecked)
-      setAllChecked(!allChecked);
-  }, [setPageAllChecked]);
-
-  // useEffect(() => {
-  //   if (allChecked) {
-  //     const idArr = currentItems.map((curr) => curr.id);
-  //     setSelectedUsersAllChecked([...idArr]);
-  //   } else if (!allChecked) {
-  //     setSelectedUsersAllChecked([]);
-  //   }
-  // }, [allChecked])
+    if (allChecked) {
+      const idArr = currentItems.map((curr) => curr.id);
+      setSelectedUsersAllChecked([...idArr]);
+    } else if (!allChecked) {
+      setSelectedUsersAllChecked([]);
+    }
+  }, [allChecked])
 
   useEffect(() => {
-    console.log("selectedUsersAllChecked:", selectedUsersAllChecked);
-  }, [selectedUsersAllChecked]);
+    console.log("selectedUsersAllChecked useEffect", selectedUsersAllChecked);
+  }, [selectedUsersAllChecked])
 
-  // useEffect(() => {
-  //   if (allChecked) setAllChecked(!allChecked)
-  // }, [itemOffset])
+  useEffect(() => {
+    if (allChecked) setAllChecked(!allChecked)
+  }, [itemOffset])
 
-  // {allChecked && console.log("Yeah I'm true af")}
-  // {!allChecked && console.log("feeling falsy")}
+  useEffect(() => {
+    if (allChecked) setAllChecked(!allChecked)        
+  }, [currentItems])
+
 
   return (
     <div>
@@ -47,22 +43,22 @@ const UserPanel = ({ currentItems, setCurrentItems, users, pageCount, handleUser
             checked={allChecked}
             onChange={(event) => handleAllChecked(event)} />}
           {itemOffset === 10 && <input
-            id={`page${itemOffset/10}`}
+            id={`page${itemOffset / 10}`}
             type="checkbox"
             checked={allChecked}
             onChange={(event) => handleAllChecked(event)} />}
           {itemOffset === 20 && <input
-            id={`page${itemOffset/10}`}
+            id={`page${itemOffset / 10}`}
             type="checkbox"
             checked={allChecked}
             onChange={(event) => handleAllChecked(event)} />}
           {itemOffset === 30 && <input
-            id={`page${itemOffset/10}`}
+            id={`page${itemOffset / 10}`}
             type="checkbox"
             checked={allChecked}
             onChange={(event) => handleAllChecked(event)} />}
           {itemOffset === 40 && <input
-            id={`page${itemOffset/10}`}
+            id={`page${itemOffset / 10}`}
             type="checkbox"
             checked={allChecked}
             onChange={(event) => handleAllChecked(event)} />}

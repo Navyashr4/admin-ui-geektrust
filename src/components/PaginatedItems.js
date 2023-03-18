@@ -8,7 +8,10 @@ function PaginatedItems({ itemsPerPage }) {
   const [users, setUsers] = useState([]);
   const [itemOffset, setItemOffset] = useState(0);
   const [currentItems, setCurrentItems] = useState([]);
+  const [selectedUsersAllChecked, setSelectedUsersAllChecked] = useState([]);
   const selectedUsers = [];
+
+  console.log("selectedUsersAllChecked from pag", selectedUsersAllChecked);
 
   const endOffset = itemOffset + itemsPerPage;
   const pageCount = Math.ceil(users.length / itemsPerPage);
@@ -22,6 +25,18 @@ function PaginatedItems({ itemsPerPage }) {
   const handleDeleteSelected = () => {
     if (selectedUsers) {
       selectedUsers.map((id) => {
+        const user = users.find(user => user.id === id);
+        const idx = users.indexOf(user);
+        const splicedUser = users.splice(idx, 1);
+
+        handleUsers(users);
+        setCurrentItems(users.slice(itemOffset, endOffset));
+      })
+    }
+
+    if (selectedUsersAllChecked) {
+      console.log("all checked deletion")
+      selectedUsersAllChecked.map((id) => {
         const user = users.find(user => user.id === id);
         const idx = users.indexOf(user);
         const splicedUser = users.splice(idx, 1);
@@ -53,6 +68,8 @@ function PaginatedItems({ itemsPerPage }) {
       <UserPanel
         currentItems={currentItems}
         setCurrentItems={setCurrentItems}
+        selectedUsersAllChecked={selectedUsersAllChecked}
+        setSelectedUsersAllChecked={setSelectedUsersAllChecked}
         users={users}
         handleUsers={handleUsers}
         itemOffset={itemOffset}

@@ -7,8 +7,6 @@ const SingleUser = ({ users, handleUsers, currentItems, setCurrentItems, itemOff
   const [display, setDisplay] = useState(true);
   const [edit, setEdit] = useState(false);
 
-  // console.log("All checked from single user", allChecked)
-
   const deleteUser = () => {
     const user = users.find(user => user.id === id);
     const idx = users.indexOf(user);
@@ -17,6 +15,14 @@ const SingleUser = ({ users, handleUsers, currentItems, setCurrentItems, itemOff
     console.log('single user', users);
     setCurrentItems(users.slice(itemOffset, endOffset));
   }
+
+  useEffect(() => {
+    if (allChecked && selectedUsersAllChecked.find((allCheckedId) => allCheckedId === id) >= 0 && !checked) {
+      setChecked(!checked);
+    } else if (!allChecked) {
+      setChecked(false);
+    }
+  }, [selectedUsersAllChecked])
 
   const handleChecked = () => {
     if (!checked) {
@@ -34,7 +40,6 @@ const SingleUser = ({ users, handleUsers, currentItems, setCurrentItems, itemOff
     deleteUser();
   }
 
-  // console.log("single user receiving allSelectedusers", selectedUsersAllChecked)
 
   return (
     display && <div className={`${checked ? 'bg-slate-200' : `bg-white`} flex
