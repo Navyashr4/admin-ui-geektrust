@@ -4,7 +4,6 @@ import SingleUser from "./SingleUser";
 
 const UserPanel = ({ currentItems, setCurrentItems, users, pageCount, handleUsers, itemOffset, endOffset, selectedUsers, selectedUsersAllChecked, setSelectedUsersAllChecked }) => {
   const [allChecked, setAllChecked] = useState(false);
-  // const [selectedUsersAllChecked, setSelectedUsersAllChecked] = useState([]);
   const [pageAllChecked, setPageAllChecked] = useState([]);
 
   const handleAllChecked = () => {
@@ -31,7 +30,6 @@ const UserPanel = ({ currentItems, setCurrentItems, users, pageCount, handleUser
   useEffect(() => {
     if (allChecked) setAllChecked(!allChecked)        
   }, [currentItems])
-
 
   return (
     <div>

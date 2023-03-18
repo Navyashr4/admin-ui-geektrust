@@ -4,8 +4,8 @@ import './PaginatedItems.css'
 import UserPanel from './UserPanel'
 import axios from 'axios';
 
-function PaginatedItems({ itemsPerPage }) {
-  const [users, setUsers] = useState([]);
+function PaginatedItems({ itemsPerPage, users, handleUsers}) {
+  // const [users, setUsers] = useState([]);
   const [itemOffset, setItemOffset] = useState(0);
   const [currentItems, setCurrentItems] = useState([]);
   const [selectedUsersAllChecked, setSelectedUsersAllChecked] = useState([]);
@@ -16,11 +16,11 @@ function PaginatedItems({ itemsPerPage }) {
   const endOffset = itemOffset + itemsPerPage;
   const pageCount = Math.ceil(users.length / itemsPerPage);
 
-  const handleUsers = (users) => {
-    console.log("Calling Handle Users")
-    setUsers(users);
-    console.log("Users from paginated items", users);
-  }
+  // const handleUsers = (users) => {
+  //   console.log("Calling Handle Users")
+  //   setUsers(users);
+  //   console.log("Users from paginated items", users);
+  // }
 
   const handleDeleteSelected = () => {
     if (selectedUsers) {
@@ -47,11 +47,11 @@ function PaginatedItems({ itemsPerPage }) {
     }
   }
 
-  useEffect(() => {
-    axios.get('https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json')
-      .then((res) => setUsers(res.data));
-    console.log(users);
-  }, []);
+  // useEffect(() => {
+  //   axios.get('https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json')
+  //     .then((res) => setUsers(res.data));
+  //   console.log(users);
+  // }, []);
 
   useEffect(() => {
     setCurrentItems(users.slice(itemOffset, endOffset));
