@@ -22,7 +22,8 @@ function App() {
   // console.log('users from app', users);
 
   return (
-    <div className="text-black text-center text-white min-w-[600px] max-w-[1056px] my-5 mx-auto px-5 h-screen flex flex-col">
+    <div className="text-black text-center text-white min-w-[600px] max-w-[1056px] my-5 mx-auto px-5 h-screen flex flex-col justify-center">
+      <div className='text-[#5AB1BB] text-2xl font-semibold mb-8 '>Admin UI Panel</div>
       <SearchBar users={users} handleUsers={handleUsers}/>
       {users && <PaginatedItems users={users} handleUsers={handleUsers} itemsPerPage = {10}/>}
     </div>

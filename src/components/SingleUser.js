@@ -74,7 +74,7 @@ const SingleUser = ({ users, handleUsers, currentItems, setCurrentItems, itemOff
 
       <div className='flex w-[10%] justify-left gap-6 px-2 items-center'>
         <EditIcon
-          sx={{ cursor: 'pointer', color: 'blue' }}
+          sx={{ cursor: 'pointer', color: '#5AB1BB' }}
           onClick={() => setEdit(!edit)}
           fontSize='14px' />
         <DeleteOutlineIcon

@@ -37,7 +37,7 @@ function SearchBar({users, handleUsers}) {
       <input
         type="text"
         placeholder="Search by name or email"
-        className='border-solid border-2 w-[40%] rounded-md mr-4 p-1 pl-2'
+        className='border-solid border-2 w-[40%] border-[#5AB1BB]/50 rounded-md mr-4 p-1 pl-2'
         value={query}
         onChange={e => handleQuery(e)}
         onKeyDown={handleKeyDown}
